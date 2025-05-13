@@ -226,38 +226,38 @@ const AdminDashboard = () => {
       
       <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <TabsList className="overflow-x-auto w-full sm:w-auto bg-[#05012B]/70 border-[#00ECBE]/20 border p-1">
+          <TabsList className="overflow-x-auto w-full sm:w-auto bg-[#05012B]/70 border-[#00ECBE]/20 border p-1.5">
             <TabsTrigger 
               value="all"
-              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-2.5 px-5"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3.5 px-6 text-base"
             >
               All Verifications
             </TabsTrigger>
             <TabsTrigger 
               value="approved"
-              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-2.5 px-5"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3.5 px-6 text-base"
             >
               Approved
             </TabsTrigger>
             <TabsTrigger 
               value="rejected"
-              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-2.5 px-5"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3.5 px-6 text-base"
             >
               Rejected
             </TabsTrigger>
           </TabsList>
           
-          <div className="hidden sm:flex items-center gap-3">
-            <Label htmlFor="status-filter" className="text-muted-foreground">Filter:</Label>
+          <div className="hidden sm:flex items-center gap-4">
+            <Label htmlFor="status-filter" className="text-muted-foreground text-base">Filter:</Label>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger id="status-filter" className="w-[200px] border-[#00ECBE]/30 bg-[#05012B]/70 py-2.5">
+              <SelectTrigger id="status-filter" className="w-[220px] border-[#00ECBE]/30 bg-[#05012B]/70 py-3.5 px-4 text-base">
                 <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
               <SelectContent className="bg-[#05012B] border-[#00ECBE]/30">
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="approved">Approved</SelectItem>
-                <SelectItem value="rejected">Rejected</SelectItem>
+                <SelectItem value="all" className="text-base py-2.5">All</SelectItem>
+                <SelectItem value="pending" className="text-base py-2.5">Pending</SelectItem>
+                <SelectItem value="approved" className="text-base py-2.5">Approved</SelectItem>
+                <SelectItem value="rejected" className="text-base py-2.5">Rejected</SelectItem>
               </SelectContent>
             </Select>
           </div>

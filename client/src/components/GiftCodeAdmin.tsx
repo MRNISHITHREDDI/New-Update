@@ -154,7 +154,7 @@ const GiftCodeAdmin = () => {
             <label className="text-base font-medium mb-3 block">Current Gift Code</label>
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-between bg-[#05012B]/70 border border-[#00ECBE]/30 rounded-lg p-4 flex-1">
-                <code className="text-white font-mono text-base overflow-auto whitespace-nowrap max-w-[calc(100%-40px)]">
+                <code className="text-white font-mono text-base overflow-hidden text-ellipsis block w-full">
                   {giftCode || 'Loading...'}
                 </code>
               </div>
@@ -162,7 +162,7 @@ const GiftCodeAdmin = () => {
                 size="icon"
                 variant="outline"
                 onClick={handleCopyCode}
-                className="text-[#00ECBE] hover:text-white border-[#00ECBE]/30 hover:bg-[#00ECBE]/10 h-12 w-12"
+                className="text-[#00ECBE] hover:text-white border-[#00ECBE]/30 hover:bg-[#00ECBE]/10 h-12 w-12 flex-shrink-0"
               >
                 {copied ? <CheckCircle2 size={20} /> : <Clipboard size={20} />}
               </Button>

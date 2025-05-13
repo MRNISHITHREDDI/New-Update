@@ -76,16 +76,16 @@ const Admin = () => {
       </div>
       
       <Tabs defaultValue="verifications" className="w-full">
-        <TabsList className="mb-8 w-full justify-start bg-[#05012B]/70 border-[#00ECBE]/20 border">
+        <TabsList className="mb-8 w-full justify-start bg-[#05012B]/70 border-[#00ECBE]/20 border p-1.5">
           <TabsTrigger 
             value="verifications" 
-            className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3 px-6"
+            className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-4 px-8 text-base"
           >
             Account Verifications
           </TabsTrigger>
           <TabsTrigger 
             value="giftcode"
-            className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3 px-6"
+            className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-4 px-8 text-base"
           >
             Gift Code
           </TabsTrigger>
