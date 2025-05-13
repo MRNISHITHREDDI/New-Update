@@ -1,115 +1,59 @@
-// Simple express server for Cloud Run deployment
-const express = require('express');
-const app = express();
+// Minimal HTTP server - no dependencies
+const http = require('http');
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-// Add CORS headers
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+// Create an HTTP server
+const server = http.createServer((req, res) => {
+  // Log the request
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
   
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
-  next();
-});
-
-// Sample data
-const storage = {
-  verifications: [
-    {
-      id: 1,
-      jalwaUserId: '12345',
-      status: 'approved',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      notes: 'Auto-approved'
-    },
-    {
-      id: 2,
-      jalwaUserId: '56789',
-      status: 'pending',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    }
-  ],
-  giftCode: "4033F8A7A14DE9DC179CDD9942EF52F6"
-};
-
-// API Routes
-app.get('/', (req, res) => {
-  res.send('Jalwa API Server is running!');
-});
-
-app.get('/api/gift-code', (req, res) => {
-  res.json({ success: true, data: { giftCode: storage.giftCode } });
-});
-
-app.get('/api/admin/account-verifications', (req, res) => {
-  res.json({ success: true, data: storage.verifications });
-});
-
-app.get('/api/admin/account-verifications/status/:status', (req, res) => {
-  const { status } = req.params;
-  const filtered = storage.verifications.filter(v => v.status === status);
-  res.json({ success: true, data: filtered });
-});
-
-app.post('/api/verify-account', (req, res) => {
-  const { jalwaUserId } = req.body;
-  
-  if (!jalwaUserId) {
-    return res.status(400).json({ 
-      success: false, 
-      message: 'Missing jalwaUserId',
-      isVerified: false
-    });
+    res.writeHead(204);
+    res.end();
+    return;
   }
   
-  // Check if already verified
-  const existing = storage.verifications.find(v => v.jalwaUserId === jalwaUserId);
-  if (existing) {
-    return res.json({
-      success: true,
-      message: 'Account verification status retrieved',
-      isVerified: existing.status === 'approved',
-      status: existing.status,
-      userId: jalwaUserId
-    });
+  // Root endpoint
+  if (req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Jalwa Minimal Server is running!');
+    return;
   }
   
-  // Auto-approve for demo users
-  const approvedUserIds = ['12345', '56789', 'admin123', 'approved_test_user'];
-  const approved = approvedUserIds.includes(jalwaUserId);
-  const status = approved ? 'approved' : 'pending';
+  // Health check endpoint
+  if (req.url === '/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', timestamp: new Date().toISOString() }));
+    return;
+  }
   
-  // Create new verification
-  const newVerification = {
-    id: storage.verifications.length + 1,
-    jalwaUserId,
-    status,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    notes: approved ? 'Auto-approved' : undefined
-  };
+  // Gift code endpoint (minimal API example)
+  if (req.url === '/api/gift-code') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ 
+      success: true, 
+      data: { 
+        giftCode: "4033F8A7A14DE9DC179CDD9942EF52F6" 
+      } 
+    }));
+    return;
+  }
   
-  storage.verifications.push(newVerification);
-  
-  return res.json({
-    success: true,
-    message: approved ? 'Account verified automatically' : 'Verification pending admin approval',
-    isVerified: approved,
-    status,
-    userId: jalwaUserId
-  });
+  // 404 for any other route
+  res.writeHead(404, { 'Content-Type': 'text/plain' });
+  res.end('Not Found');
 });
 
-// Start server
-const PORT = parseInt(process.env.PORT) || 8080;
-const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
+// Get the port from the environment variable
+const PORT = process.env.PORT || 8080;
+
+// Start the server
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running at http://0.0.0.0:${PORT}/`);
+  console.log(`Using port from environment: ${process.env.PORT || '(default) 8080'}`);
 });
