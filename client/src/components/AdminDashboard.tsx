@@ -212,24 +212,48 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="container mx-auto py-8 px-5 sm:px-8">
-      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+    <div className="w-full">
+      <Card className="border-[#00ECBE]/20 bg-[#05012B]/50 mb-6">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-xl font-medium text-[#00ECBE]">Account Verifications</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground">
+            Review and manage user verification requests. Approve or reject user accounts based on their Jalwa User ID.
+          </p>
+        </CardContent>
+      </Card>
       
       <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-          <TabsList className="overflow-x-auto w-full sm:w-auto">
-            <TabsTrigger value="all">All Verifications</TabsTrigger>
-            <TabsTrigger value="approved">Approved</TabsTrigger>
-            <TabsTrigger value="rejected">Rejected</TabsTrigger>
+          <TabsList className="overflow-x-auto w-full sm:w-auto bg-[#05012B]/70 border-[#00ECBE]/20 border">
+            <TabsTrigger 
+              value="all"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none"
+            >
+              All Verifications
+            </TabsTrigger>
+            <TabsTrigger 
+              value="approved"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none"
+            >
+              Approved
+            </TabsTrigger>
+            <TabsTrigger 
+              value="rejected"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none"
+            >
+              Rejected
+            </TabsTrigger>
           </TabsList>
           
           <div className="hidden sm:flex items-center gap-2">
-            <Label htmlFor="status-filter">Filter:</Label>
+            <Label htmlFor="status-filter" className="text-muted-foreground">Filter:</Label>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger id="status-filter" className="w-[180px]">
+              <SelectTrigger id="status-filter" className="w-[180px] border-[#00ECBE]/30 bg-[#05012B]/70">
                 <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#05012B] border-[#00ECBE]/30">
                 <SelectItem value="all">All</SelectItem>
                 <SelectItem value="pending">Pending</SelectItem>
                 <SelectItem value="approved">Approved</SelectItem>
@@ -260,13 +284,20 @@ const AdminDashboard = () => {
 
   function renderVerificationsTable(verifications: Verification[]) {
     if (isLoading) {
-      return <div className="text-center py-8">Loading...</div>;
+      return (
+        <div className="text-center py-10 bg-[#05012B]/70 rounded-lg border border-[#00ECBE]/20 flex items-center justify-center">
+          <div className="flex items-center gap-2">
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#00ECBE] border-t-transparent"></div>
+            <p className="text-[#00ECBE]">Loading verifications...</p>
+          </div>
+        </div>
+      );
     }
 
     if (verifications.length === 0) {
       return (
-        <div className="text-center py-8 bg-gray-100 rounded-lg">
-          <p className="text-gray-500">No verifications found.</p>
+        <div className="text-center py-10 bg-[#05012B]/70 rounded-lg border border-[#00ECBE]/20">
+          <p className="text-muted-foreground">No verifications found.</p>
         </div>
       );
     }
@@ -335,17 +366,17 @@ const AdminDashboard = () => {
     
     // Desktop table view
     const DesktopTable = () => (
-      <div className="rounded-md border overflow-x-auto hidden lg:block admin-table-container">
+      <div className="rounded-md border border-[#00ECBE]/20 overflow-x-auto hidden lg:block admin-table-container bg-[#05012B]/50">
         <Table className="admin-table">
-          <TableCaption>List of account verification requests.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">ID</TableHead>
-              <TableHead>User ID</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Created</TableHead>
-              <TableHead>Updated</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+          <TableCaption className="text-muted-foreground">List of account verification requests.</TableCaption>
+          <TableHeader className="bg-[#05012B]/70">
+            <TableRow className="border-b-[#00ECBE]/20 hover:bg-[#00ECBE]/5">
+              <TableHead className="w-[100px] text-[#00ECBE]">ID</TableHead>
+              <TableHead className="text-[#00ECBE]">User ID</TableHead>
+              <TableHead className="text-[#00ECBE]">Status</TableHead>
+              <TableHead className="text-[#00ECBE]">Created</TableHead>
+              <TableHead className="text-[#00ECBE]">Updated</TableHead>
+              <TableHead className="text-right text-[#00ECBE]">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
