@@ -1,12 +1,9 @@
-FROM node:16-slim
+FROM node:14-alpine
 
 WORKDIR /app
 
 # Copy server file
 COPY server.js .
-
-# Install express
-RUN npm install express
 
 # Expose port 8080
 EXPOSE 8080
