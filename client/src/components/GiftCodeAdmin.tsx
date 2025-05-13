@@ -152,31 +152,21 @@ const GiftCodeAdmin = () => {
         <div className="space-y-6">
           <div>
             <label className="text-base font-medium mb-2 block">Current Gift Code</label>
-            <div className="flex flex-col sm:flex-row items-center gap-2">
-              <div className="w-full flex items-center justify-center bg-[#05012B]/70 border border-[#00ECBE]/30 rounded-lg p-3">
-                <code className="text-white font-mono text-base overflow-hidden text-ellipsis block w-full text-center">
-                  {giftCode || 'Loading...'}
-                </code>
-              </div>
-              <Button
-                size="icon"
-                variant="outline"
-                onClick={handleCopyCode}
-                className="text-[#00ECBE] hover:text-white border-[#00ECBE]/30 hover:bg-[#00ECBE]/10 h-10 w-10 flex-shrink-0 mt-2 sm:mt-0"
-              >
-                {copied ? <CheckCircle2 size={18} /> : <Clipboard size={18} />}
-              </Button>
+            <div className="w-full flex items-start justify-start bg-[#05012B]/70 border border-[#00ECBE]/30 rounded-lg p-3">
+              <code className="text-white font-mono text-base overflow-hidden text-ellipsis block w-full">
+                {giftCode || 'Loading...'}
+              </code>
             </div>
           </div>
           
           <div className="pt-1">
             <label className="text-base font-medium mb-2 block">Update Gift Code</label>
-            <div className="flex flex-col sm:flex-row items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-start gap-2">
               <Input 
                 value={newGiftCode}
                 onChange={(e) => setNewGiftCode(e.target.value)}
                 placeholder="Enter new gift code"
-                className="w-full py-2 text-center"
+                className="w-full py-2"
               />
               <Button
                 onClick={updateGiftCode}
