@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { z, ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 import { accountVerificationResponseSchema } from "@shared/schema";
+import { adminAuthMiddleware } from "./middleware/adminAuth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Validate Jalwa User ID endpoint
@@ -62,7 +63,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get all account verifications (admin only)
-  app.get('/api/admin/account-verifications', async (_req: Request, res: Response) => {
+  app.get('/api/admin/account-verifications', adminAuthMiddleware, async (_req: Request, res: Response) => {
     try {
       const verifications = await storage.getAllAccountVerifications();
       return res.status(200).json({
@@ -79,7 +80,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get account verifications by status (admin only)
-  app.get('/api/admin/account-verifications/status/:status', async (req: Request, res: Response) => {
+  app.get('/api/admin/account-verifications/status/:status', adminAuthMiddleware, async (req: Request, res: Response) => {
     try {
       const { status } = req.params;
       
