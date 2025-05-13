@@ -2,11 +2,12 @@ FROM node:20-slim
 
 WORKDIR /app
 
-# Copy everything
-COPY . .
-
-# Install dependencies
+# Copy package files
+COPY package*.json ./
 RUN npm ci
+
+# Copy everything else
+COPY . .
 
 # Build the application
 RUN npm run build
@@ -17,5 +18,8 @@ ENV NODE_ENV=production
 # Expose port
 EXPOSE 8080
 
-# Define the command to run your app
-CMD ["node", "dist/index.js"]
+# Cloud Run will set this environment variable for you
+ENV PORT=8080
+
+# Run the compiled JavaScript
+CMD ["node", "dist/server/index.js"]
