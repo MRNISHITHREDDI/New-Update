@@ -43,7 +43,14 @@ interface Verification {
 
 // API functions
 const fetchAllVerifications = async (): Promise<Verification[]> => {
-  const response = await fetch('/api/admin/account-verifications');
+  // Get token from localStorage
+  const ADMIN_PASSWORD = 'jalwa-admin-2023'; // This should match the server's expected token
+  
+  const response = await fetch('/api/admin/account-verifications', {
+    headers: {
+      'X-Admin-Token': ADMIN_PASSWORD
+    }
+  });
   if (!response.ok) {
     throw new Error('Failed to fetch verifications');
   }
@@ -52,7 +59,14 @@ const fetchAllVerifications = async (): Promise<Verification[]> => {
 };
 
 const fetchVerificationsByStatus = async (status: string): Promise<Verification[]> => {
-  const response = await fetch(`/api/admin/account-verifications/status/${status}`);
+  // Get token from localStorage
+  const ADMIN_PASSWORD = 'jalwa-admin-2023'; // This should match the server's expected token
+  
+  const response = await fetch(`/api/admin/account-verifications/status/${status}`, {
+    headers: {
+      'X-Admin-Token': ADMIN_PASSWORD
+    }
+  });
   if (!response.ok) {
     throw new Error(`Failed to fetch ${status} verifications`);
   }
@@ -62,10 +76,14 @@ const fetchVerificationsByStatus = async (status: string): Promise<Verification[
 
 const updateVerificationStatus = async (params: { id: number; status: string; notes?: string }) => {
   const { id, status, notes } = params;
+  // Get token from localStorage
+  const ADMIN_PASSWORD = 'jalwa-admin-2023'; // This should match the server's expected token
+  
   const response = await fetch(`/api/admin/account-verifications/${id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'X-Admin-Token': ADMIN_PASSWORD
     },
     body: JSON.stringify({
       status,

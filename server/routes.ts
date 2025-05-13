@@ -157,7 +157,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   };
   
   // Register the handler for verification updates
-  app.post('/api/admin/account-verifications/:id', handleVerificationUpdate);
+  app.post('/api/admin/account-verifications/:id', adminAuthMiddleware, handleVerificationUpdate);
 
   const httpServer = createServer(app);
 
