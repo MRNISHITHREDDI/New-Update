@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Gift } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import jalwaLogo from '../assets/jalwa-logo.png';
 import JoinProModal from './JoinProModal';
+import GiftCodeModal from './GiftCodeModal';
 import { useAdminAuth } from '@/hooks/use-admin-auth';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [joinProModalOpen, setJoinProModalOpen] = useState(false);
+  const [giftCodeModalOpen, setGiftCodeModalOpen] = useState(false);
   const [, setLocation] = useLocation();
   const { isAuthenticated } = useAdminAuth();
 
@@ -28,6 +30,10 @@ const Navbar = () => {
   
   const openJoinProModal = () => {
     setJoinProModalOpen(true);
+  };
+  
+  const openGiftCodeModal = () => {
+    setGiftCodeModalOpen(true);
   };
 
   return (
@@ -104,6 +110,17 @@ const Navbar = () => {
               >
                 Prediction
               </a>
+              <a 
+                href="#" 
+                className="text-[#00ECBE] hover:text-white transition duration-300 flex items-center"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openGiftCodeModal();
+                }}
+              >
+                <Gift size={16} className="mr-1" />
+                Gift Code
+              </a>
               {isAuthenticated && (
                 <Link 
                   href="/admin" 
@@ -160,6 +177,18 @@ const Navbar = () => {
               >
                 Prediction
               </a>
+              <a 
+                href="#"
+                className="block text-[#00ECBE] py-2 flex items-center"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileMenuOpen(false);
+                  openGiftCodeModal();
+                }}
+              >
+                <Gift size={16} className="mr-1" />
+                Gift Code
+              </a>
               {isAuthenticated && (
                 <Link
                   href="/admin"
@@ -189,6 +218,12 @@ const Navbar = () => {
       <JoinProModal 
         isOpen={joinProModalOpen}
         onClose={() => setJoinProModalOpen(false)}
+      />
+
+      {/* Gift Code Modal */}
+      <GiftCodeModal
+        isOpen={giftCodeModalOpen}
+        onClose={() => setGiftCodeModalOpen(false)}
       />
     </>
   );
