@@ -141,7 +141,7 @@ const GiftCodeAdmin = () => {
 
   return (
     <Card className="w-full border-[#00ECBE]/20 bg-[#05012B]/50 shadow-lg">
-      <CardHeader className="pb-2 pt-4 px-6">
+      <CardHeader className="pb-2 pt-4 px-6 flex flex-col items-center text-center">
         <div className="flex items-center gap-2">
           <Gift size={20} className="text-[#00ECBE]" />
           <CardTitle className="text-2xl font-medium text-[#00ECBE]">Gift Code Management</CardTitle>
@@ -149,12 +149,12 @@ const GiftCodeAdmin = () => {
         <CardDescription className="text-base mt-1">View and update the gift code displayed to users</CardDescription>
       </CardHeader>
       <CardContent className="px-6 pb-6">
-        <div className="space-y-6">
+        <div className="space-y-6 max-w-md mx-auto">
           <div>
             <label className="text-base font-medium mb-2 block">Current Gift Code</label>
             <div className="flex items-center gap-2">
               <div className="flex items-center justify-between bg-[#05012B]/70 border border-[#00ECBE]/30 rounded-lg p-3 flex-1">
-                <code className="text-white font-mono text-base overflow-hidden text-ellipsis block w-full">
+                <code className="text-white font-mono text-base overflow-hidden text-ellipsis block w-full text-center">
                   {giftCode || 'Loading...'}
                 </code>
               </div>
@@ -176,7 +176,7 @@ const GiftCodeAdmin = () => {
                 value={newGiftCode}
                 onChange={(e) => setNewGiftCode(e.target.value)}
                 placeholder="Enter new gift code"
-                className="flex-1 py-2"
+                className="flex-1 py-2 text-center"
               />
               <Button
                 onClick={updateGiftCode}
