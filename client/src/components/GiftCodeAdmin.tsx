@@ -64,6 +64,10 @@ const GiftCodeAdmin = () => {
         body: JSON.stringify({ giftCode: newGiftCode }),
       });
       
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
       const data = await response.json();
       
       if (data.success) {
@@ -72,6 +76,11 @@ const GiftCodeAdmin = () => {
           title: "Success",
           description: "Gift code updated successfully",
         });
+        
+        // Trigger an event to notify other components that the gift code has changed
+        window.dispatchEvent(new CustomEvent('giftCodeUpdated', { 
+          detail: { giftCode: data.data.giftCode } 
+        }));
       } else {
         toast({
           title: "Error",

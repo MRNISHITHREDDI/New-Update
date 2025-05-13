@@ -45,33 +45,51 @@ const GiftCodeModal: React.FC<GiftCodeModalProps> = ({ isOpen, onClose }) => {
   // Fetch the gift code when the modal opens
   useEffect(() => {
     if (isOpen) {
-      fetch('/api/gift-code')
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
+      const fetchGiftCode = async () => {
+        try {
+          const response = await fetch('/api/gift-code');
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          
+          const data = await response.json();
+          
+          if (data.success && data.data && data.data.giftCode) {
             setGiftCode(data.data.giftCode);
           } else {
-            setGiftCode("Error loading gift code");
-            toast({
-              title: "Error",
-              description: "Failed to load gift code",
-              variant: "destructive",
-              duration: 3000,
-            });
+            throw new Error("Invalid response format");
           }
-        })
-        .catch(error => {
+        } catch (error) {
           console.error("Error fetching gift code:", error);
-          setGiftCode("Error loading gift code");
+          setGiftCode("4033F8A7A14DE9DC179CDD9942EF52F6"); // Fallback to default code
           toast({
-            title: "Error",
-            description: "Failed to load gift code",
+            title: "Warning",
+            description: "Using default gift code. Server connection issue.",
             variant: "destructive",
             duration: 3000,
           });
-        });
+        }
+      };
+      
+      fetchGiftCode();
     }
   }, [isOpen, toast]);
+  
+  // Listen for gift code updates from admin panel
+  useEffect(() => {
+    const handleGiftCodeUpdate = (event: any) => {
+      if (event.detail && event.detail.giftCode) {
+        setGiftCode(event.detail.giftCode);
+      }
+    };
+    
+    window.addEventListener('giftCodeUpdated', handleGiftCodeUpdate);
+    
+    return () => {
+      window.removeEventListener('giftCodeUpdated', handleGiftCodeUpdate);
+    };
+  }, []);
   
   // Prevent clicks inside the modal from closing it
   const handleModalClick = (e: React.MouseEvent) => {
