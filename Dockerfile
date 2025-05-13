@@ -2,14 +2,14 @@ FROM node:18
 
 WORKDIR /app
 
-# Copy the server file
+# Copy server file
 COPY server.js ./
 
-# Install only express (minimal dependency)
+# Install express
 RUN npm install express
 
-# Expose the port
+# Expose port
 EXPOSE 8080
 
-# Run the server
+# Run the application
 CMD ["node", "server.js"]
