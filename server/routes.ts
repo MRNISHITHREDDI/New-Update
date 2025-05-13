@@ -163,12 +163,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/gift-code', async (_req: Request, res: Response) => {
     try {
       const giftCode = await storage.getGiftCode();
+      // Explicitly set content type to ensure JSON response
+      res.setHeader('Content-Type', 'application/json');
       return res.status(200).json({
         success: true,
         data: { giftCode }
       });
     } catch (error) {
       console.error('Failed to get gift code:', error);
+      // Explicitly set content type for error responses as well
+      res.setHeader('Content-Type', 'application/json');
       return res.status(500).json({
         success: false,
         message: 'Failed to get gift code'
@@ -188,6 +192,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Update gift code
       const updatedGiftCode = await storage.updateGiftCode(giftCode);
       
+      // Explicitly set content type to ensure JSON response
+      res.setHeader('Content-Type', 'application/json');
       return res.status(200).json({
         success: true,
         message: 'Gift code updated successfully',
@@ -197,6 +203,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Handle zod validation errors
       if (error instanceof ZodError) {
         const validationError = fromZodError(error);
+        // Explicitly set content type for error responses
+        res.setHeader('Content-Type', 'application/json');
         return res.status(400).json({
           success: false,
           message: validationError.message
@@ -204,6 +212,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       console.error('Failed to update gift code:', error);
+      // Explicitly set content type for error responses
+      res.setHeader('Content-Type', 'application/json');
       return res.status(500).json({
         success: false,
         message: 'Failed to update gift code'
