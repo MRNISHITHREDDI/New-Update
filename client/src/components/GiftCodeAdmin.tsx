@@ -141,7 +141,7 @@ const GiftCodeAdmin = () => {
 
   return (
     <Card className="w-full border-[#00ECBE]/20 bg-[#05012B]/50 shadow-lg">
-      <CardHeader className="pb-2 pt-4 px-6 flex flex-col items-center text-center">
+      <CardHeader className="pb-2 pt-4 px-6">
         <div className="flex items-center gap-2">
           <Gift size={20} className="text-[#00ECBE]" />
           <CardTitle className="text-2xl font-medium text-[#00ECBE]">Gift Code Management</CardTitle>
@@ -149,11 +149,11 @@ const GiftCodeAdmin = () => {
         <CardDescription className="text-base mt-1">View and update the gift code displayed to users</CardDescription>
       </CardHeader>
       <CardContent className="px-6 pb-6">
-        <div className="space-y-6 max-w-md mx-auto">
+        <div className="space-y-6">
           <div>
             <label className="text-base font-medium mb-2 block">Current Gift Code</label>
-            <div className="flex items-center gap-2">
-              <div className="flex items-center justify-between bg-[#05012B]/70 border border-[#00ECBE]/30 rounded-lg p-3 flex-1">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
+              <div className="w-full flex items-center justify-center bg-[#05012B]/70 border border-[#00ECBE]/30 rounded-lg p-3">
                 <code className="text-white font-mono text-base overflow-hidden text-ellipsis block w-full text-center">
                   {giftCode || 'Loading...'}
                 </code>
@@ -162,7 +162,7 @@ const GiftCodeAdmin = () => {
                 size="icon"
                 variant="outline"
                 onClick={handleCopyCode}
-                className="text-[#00ECBE] hover:text-white border-[#00ECBE]/30 hover:bg-[#00ECBE]/10 h-10 w-10 flex-shrink-0"
+                className="text-[#00ECBE] hover:text-white border-[#00ECBE]/30 hover:bg-[#00ECBE]/10 h-10 w-10 flex-shrink-0 mt-2 sm:mt-0"
               >
                 {copied ? <CheckCircle2 size={18} /> : <Clipboard size={18} />}
               </Button>
@@ -171,17 +171,17 @@ const GiftCodeAdmin = () => {
           
           <div className="pt-1">
             <label className="text-base font-medium mb-2 block">Update Gift Code</label>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
               <Input 
                 value={newGiftCode}
                 onChange={(e) => setNewGiftCode(e.target.value)}
                 placeholder="Enter new gift code"
-                className="flex-1 py-2 text-center"
+                className="w-full py-2 text-center"
               />
               <Button
                 onClick={updateGiftCode}
                 disabled={isLoading || !newGiftCode}
-                className="bg-[#00ECBE] text-[#05012B] hover:bg-[#00ECBE]/90 py-2 px-4"
+                className="bg-[#00ECBE] text-[#05012B] hover:bg-[#00ECBE]/90 py-2 px-4 w-full sm:w-auto mt-2 sm:mt-0"
               >
                 {isLoading ? 'Updating...' : 'Update'}
               </Button>
