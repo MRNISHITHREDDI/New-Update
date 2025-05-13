@@ -158,6 +158,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Register the handler for verification updates
   app.post('/api/admin/account-verifications/:id', adminAuthMiddleware, handleVerificationUpdate);
+  
+  // Gift code routes
+  app.get('/api/gift-code', async (_req: Request, res: Response) => {
+    try {
+      const giftCode = await storage.getGiftCode();
+      return res.status(200).json({
+        success: true,
+        data: { giftCode }
+      });
+    } catch (error) {
+      console.error('Failed to get gift code:', error);
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to get gift code'
+      });
+    }
+  });
+  
+  app.post('/api/admin/gift-code', adminAuthMiddleware, async (req: Request, res: Response) => {
+    try {
+      // Validate request body
+      const schema = z.object({
+        giftCode: z.string().min(1).max(100)
+      });
+      
+      const { giftCode } = schema.parse(req.body);
+      
+      // Update gift code
+      const updatedGiftCode = await storage.updateGiftCode(giftCode);
+      
+      return res.status(200).json({
+        success: true,
+        message: 'Gift code updated successfully',
+        data: { giftCode: updatedGiftCode }
+      });
+    } catch (error) {
+      // Handle zod validation errors
+      if (error instanceof ZodError) {
+        const validationError = fromZodError(error);
+        return res.status(400).json({
+          success: false,
+          message: validationError.message
+        });
+      }
+      
+      console.error('Failed to update gift code:', error);
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to update gift code'
+      });
+    }
+  });
 
   const httpServer = createServer(app);
 

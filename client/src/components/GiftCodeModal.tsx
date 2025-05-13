@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Copy, Check } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { useToast } from '@/hooks/use-toast';
 
@@ -39,8 +39,39 @@ const modalAnimation = {
 
 const GiftCodeModal: React.FC<GiftCodeModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
+  const [giftCode, setGiftCode] = useState("Loading...");
   const { toast } = useToast();
-  const giftCode = "4033F8A7A14DE9DC179CDD9942EF52F6";
+  
+  // Fetch the gift code when the modal opens
+  useEffect(() => {
+    if (isOpen) {
+      fetch('/api/gift-code')
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            setGiftCode(data.data.giftCode);
+          } else {
+            setGiftCode("Error loading gift code");
+            toast({
+              title: "Error",
+              description: "Failed to load gift code",
+              variant: "destructive",
+              duration: 3000,
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching gift code:", error);
+          setGiftCode("Error loading gift code");
+          toast({
+            title: "Error",
+            description: "Failed to load gift code",
+            variant: "destructive",
+            duration: 3000,
+          });
+        });
+    }
+  }, [isOpen, toast]);
   
   // Prevent clicks inside the modal from closing it
   const handleModalClick = (e: React.MouseEvent) => {

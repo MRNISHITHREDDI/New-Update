@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import AdminDashboard from '@/components/AdminDashboard';
+import GiftCodeAdmin from '@/components/GiftCodeAdmin';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAdminAuth } from '@/hooks/use-admin-auth';
 import SEO from '@/components/SEO';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Simple auth for admin panel
 const Admin = () => {
@@ -62,10 +64,25 @@ const Admin = () => {
   return (
     <div className="container mx-auto">
       <SEO title="Admin Dashboard | Jalwa Admin Panel" />
-      <div className="py-4 flex justify-end px-4 sm:px-0">
+      <div className="py-4 flex justify-between items-center px-4 sm:px-0">
+        <h1 className="text-2xl font-bold">Jalwa Admin Panel</h1>
         <Button variant="outline" onClick={handleLogout}>Logout</Button>
       </div>
-      <AdminDashboard />
+      
+      <Tabs defaultValue="verifications" className="w-full mt-4">
+        <TabsList className="mb-4 w-full justify-start">
+          <TabsTrigger value="verifications">Account Verifications</TabsTrigger>
+          <TabsTrigger value="giftcode">Gift Code</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="verifications">
+          <AdminDashboard />
+        </TabsContent>
+        
+        <TabsContent value="giftcode">
+          <GiftCodeAdmin />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
