@@ -47,10 +47,21 @@ const GiftCodeModal: React.FC<GiftCodeModalProps> = ({ isOpen, onClose }) => {
     if (isOpen) {
       const fetchGiftCode = async () => {
         try {
-          const response = await fetch('/api/gift-code');
+          // Make a direct API call with the appropriate Accept header
+          const response = await fetch('/api/gift-code', {
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
           
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          
+          const contentType = response.headers.get('content-type');
+          if (!contentType || !contentType.includes('application/json')) {
+            console.warn('Response is not JSON, content-type:', contentType);
+            throw new Error('Expected JSON response but got ' + contentType);
           }
           
           const data = await response.json();

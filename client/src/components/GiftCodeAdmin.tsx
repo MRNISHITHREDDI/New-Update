@@ -15,18 +15,29 @@ const GiftCodeAdmin = () => {
   // Fetch current gift code
   const fetchGiftCode = async () => {
     try {
-      const response = await fetch('/api/gift-code');
+      const response = await fetch('/api/gift-code', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        console.warn('Response is not JSON, content-type:', contentType);
+        throw new Error('Expected JSON response but got ' + contentType);
+      }
+      
       const data = await response.json();
       
-      if (data.success) {
+      if (data.success && data.data && data.data.giftCode) {
         setGiftCode(data.data.giftCode);
         setNewGiftCode(data.data.giftCode);
       } else {
-        toast({
-          title: "Error",
-          description: "Failed to load gift code",
-          variant: "destructive",
-        });
+        throw new Error("Invalid response format");
       }
     } catch (error) {
       console.error("Error fetching gift code:", error);
@@ -59,6 +70,7 @@ const GiftCodeAdmin = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
           'X-Admin-Token': adminToken
         },
         body: JSON.stringify({ giftCode: newGiftCode }),
