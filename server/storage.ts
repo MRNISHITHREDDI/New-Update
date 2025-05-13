@@ -36,12 +36,17 @@ export interface IStorage {
   getAllAccountVerifications(): Promise<AccountVerification[]>;
   getAccountVerificationsByStatus(status: string): Promise<AccountVerification[]>;
   verifyJalwaAccount(jalwaUserId: string): Promise<AccountVerificationResponse>;
+  
+  // Gift code methods
+  getGiftCode(): Promise<string>;
+  updateGiftCode(newCode: string): Promise<string>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private licenses: Map<number, License>;
   private accountVerifications: Map<number, AccountVerification>;
+  private giftCode: string = "4033F8A7A14DE9DC179CDD9942EF52F6";
   userCurrentId: number;
   licenseCurrentId: number;
   accountVerificationCurrentId: number;
@@ -411,6 +416,18 @@ export class MemStorage implements IStorage {
       userId: jalwaUserId,
       status: 'pending'
     };
+  }
+  
+  // Gift Code methods
+  async getGiftCode(): Promise<string> {
+    return this.giftCode;
+  }
+  
+  async updateGiftCode(newCode: string): Promise<string> {
+    // Update gift code
+    this.giftCode = newCode;
+    console.log(`Gift code updated to: ${newCode}`);
+    return this.giftCode;
   }
 }
 
