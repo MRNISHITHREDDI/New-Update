@@ -62,10 +62,10 @@ const Admin = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-7xl">
+    <div className="container mx-auto px-6 py-8 max-w-7xl">
       <SEO title="Admin Dashboard | Jalwa Admin Panel" />
-      <div className="py-4 flex justify-between items-center mb-6 border-b pb-4">
-        <h1 className="text-2xl font-bold text-[#00ECBE]">Jalwa Admin Panel</h1>
+      <div className="py-6 flex justify-between items-center mb-8 border-b pb-6">
+        <h1 className="text-3xl font-bold text-[#00ECBE]">Jalwa Admin Panel</h1>
         <Button 
           variant="outline" 
           onClick={handleLogout}
@@ -76,26 +76,26 @@ const Admin = () => {
       </div>
       
       <Tabs defaultValue="verifications" className="w-full">
-        <TabsList className="mb-6 w-full justify-start bg-[#05012B]/70 border-[#00ECBE]/20 border">
+        <TabsList className="mb-8 w-full justify-start bg-[#05012B]/70 border-[#00ECBE]/20 border">
           <TabsTrigger 
             value="verifications" 
-            className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none"
+            className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3 px-6"
           >
             Account Verifications
           </TabsTrigger>
           <TabsTrigger 
             value="giftcode"
-            className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none"
+            className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3 px-6"
           >
             Gift Code
           </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="verifications" className="pt-2 px-1">
+        <TabsContent value="verifications" className="pt-4 px-2">
           <AdminDashboard />
         </TabsContent>
         
-        <TabsContent value="giftcode" className="pt-2 px-1">
+        <TabsContent value="giftcode" className="pt-4 px-2">
           <GiftCodeAdmin />
         </TabsContent>
       </Tabs>

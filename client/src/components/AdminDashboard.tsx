@@ -213,44 +213,44 @@ const AdminDashboard = () => {
 
   return (
     <div className="w-full">
-      <Card className="border-[#00ECBE]/20 bg-[#05012B]/50 mb-6">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-xl font-medium text-[#00ECBE]">Account Verifications</CardTitle>
+      <Card className="border-[#00ECBE]/20 bg-[#05012B]/50 mb-8 shadow-lg">
+        <CardHeader className="pb-4 pt-6 px-8">
+          <CardTitle className="text-2xl font-medium text-[#00ECBE]">Account Verifications</CardTitle>
         </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground">
+        <CardContent className="px-8 pb-6">
+          <p className="text-base text-muted-foreground">
             Review and manage user verification requests. Approve or reject user accounts based on their Jalwa User ID.
           </p>
         </CardContent>
       </Card>
       
       <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-          <TabsList className="overflow-x-auto w-full sm:w-auto bg-[#05012B]/70 border-[#00ECBE]/20 border">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <TabsList className="overflow-x-auto w-full sm:w-auto bg-[#05012B]/70 border-[#00ECBE]/20 border p-1">
             <TabsTrigger 
               value="all"
-              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-2.5 px-5"
             >
               All Verifications
             </TabsTrigger>
             <TabsTrigger 
               value="approved"
-              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-2.5 px-5"
             >
               Approved
             </TabsTrigger>
             <TabsTrigger 
               value="rejected"
-              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-2.5 px-5"
             >
               Rejected
             </TabsTrigger>
           </TabsList>
           
-          <div className="hidden sm:flex items-center gap-2">
+          <div className="hidden sm:flex items-center gap-3">
             <Label htmlFor="status-filter" className="text-muted-foreground">Filter:</Label>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger id="status-filter" className="w-[180px] border-[#00ECBE]/30 bg-[#05012B]/70">
+              <SelectTrigger id="status-filter" className="w-[200px] border-[#00ECBE]/30 bg-[#05012B]/70 py-2.5">
                 <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
               <SelectContent className="bg-[#05012B] border-[#00ECBE]/30">
@@ -263,17 +263,17 @@ const AdminDashboard = () => {
           </div>
         </div>
         
-        <TabsContent value="all" className="mt-4">
+        <TabsContent value="all" className="mt-6 pb-6">
           {renderVerificationsTable(getVerificationsToDisplay())}
         </TabsContent>
         
-        <TabsContent value="approved" className="mt-4">
+        <TabsContent value="approved" className="mt-6 pb-6">
           {renderVerificationsTable(
             getVerificationsToDisplay().filter(v => v.status === 'approved')
           )}
         </TabsContent>
         
-        <TabsContent value="rejected" className="mt-4">
+        <TabsContent value="rejected" className="mt-6 pb-6">
           {renderVerificationsTable(
             getVerificationsToDisplay().filter(v => v.status === 'rejected')
           )}
@@ -304,44 +304,44 @@ const AdminDashboard = () => {
 
     // Mobile card view
     const MobileCards = () => (
-      <div className="space-y-4 lg:hidden admin-mobile-cards">
+      <div className="space-y-6 lg:hidden admin-mobile-cards">
         {verifications.map((verification) => (
           <div 
             key={verification.id} 
-            className="border border-[hsl(165,100%,46%)] border-opacity-20 rounded-lg text-white my-4"
+            className="border border-[hsl(165,100%,46%)] border-opacity-20 rounded-lg text-white my-4 shadow-md bg-[#05012B]/70"
           >
-            <div className="m-4">
-              <div className="flex justify-between items-start mb-2">
+            <div className="m-5">
+              <div className="flex justify-between items-start mb-3">
                 <div>
-                  <span className="text-sm text-[hsl(165,100%,46%)]">ID: </span>
+                  <span className="text-sm font-medium text-[hsl(165,100%,46%)]">ID: </span>
                   <span className="font-medium">{verification.id}</span>
                 </div>
                 <StatusBadge status={verification.status} />
               </div>
               
-              <div className="mb-2">
-                <span className="text-sm text-[hsl(165,100%,46%)]">User ID: </span>
-                <span className="font-medium">{verification.jalwaUserId}</span>
+              <div className="mb-4 mt-2">
+                <span className="text-sm font-medium text-[hsl(165,100%,46%)]">User ID: </span>
+                <span className="font-medium text-base">{verification.jalwaUserId}</span>
               </div>
               
-              <div className="grid grid-cols-2 gap-2 mb-3 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3 text-sm">
                 <div>
                   <span className="text-[hsl(165,100%,46%)]">Created: </span>
-                  <span className="text-[hsl(240,20%,80%)]">{formatDate(verification.createdAt)}</span>
+                  <span className="text-[hsl(240,20%,90%)]">{formatDate(verification.createdAt)}</span>
                 </div>
                 <div>
                   <span className="text-[hsl(165,100%,46%)]">Updated: </span>
-                  <span className="text-[hsl(240,20%,80%)]">{formatDate(verification.updatedAt)}</span>
+                  <span className="text-[hsl(240,20%,90%)]">{formatDate(verification.updatedAt)}</span>
                 </div>
               </div>
             </div>
             
-            <div className="flex justify-end border-t border-[hsl(165,100%,46%)] border-opacity-20 m-2">
+            <div className="flex justify-end border-t border-[hsl(165,100%,46%)] border-opacity-20 p-4">
               {verification.status === 'rejected' ? (
                 <Button
                   variant="default"
                   size="sm"
-                  className="bg-[hsl(165,100%,46%)] hover:bg-[hsl(165,100%,40%)] text-black w-full m-2"
+                  className="bg-[hsl(165,100%,46%)] hover:bg-[hsl(165,100%,40%)] text-black w-full py-2.5"
                   onClick={() => handleApprove(verification.id)}
                   disabled={isLoading}
                 >
@@ -351,7 +351,7 @@ const AdminDashboard = () => {
                 <Button
                   variant="destructive"
                   size="sm"
-                  className="w-full m-2"
+                  className="w-full py-2.5"
                   onClick={() => handleRemove(verification.id)}
                   disabled={isLoading}
                 >

@@ -3,19 +3,21 @@
 /* Desktop table styles */
 .admin-table-container {
   margin: 0;
-  padding: 30px;
+  padding: 36px;
+  border-radius: 12px;
 }
 
 .admin-table thead th {
-  padding: 20px 16px !important;
+  padding: 22px 20px !important;
+  font-weight: 600;
 }
 
 .admin-table tbody td {
-  padding: 16px !important;
+  padding: 18px 20px !important;
 }
 
 /* Mobile card styles */
 .admin-mobile-cards {
   margin: 0;
-  padding: 5px;
+  padding: 12px;
 }
