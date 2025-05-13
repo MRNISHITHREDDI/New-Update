@@ -56,8 +56,8 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Use the PORT environment variable for Cloud Run compatibility
-  // or fall back to port 5000 for local development
+  // Use the environment variable PORT if provided, otherwise default to 5000
+  // In cloud environments like Google Cloud Run, the PORT env variable is required
   const port = process.env.PORT ? parseInt(process.env.PORT) : 5000;
   server.listen({
     port,
