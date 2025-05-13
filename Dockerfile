@@ -18,8 +18,5 @@ ENV NODE_ENV=production
 # Expose port
 EXPOSE 8080
 
-# Cloud Run will set this environment variable for you
-ENV PORT=8080
-
-# Run the compiled JavaScript
-CMD ["node", "dist/server/index.js"]
+# Run the compiled server
+CMD ["node", "./dist/server/index.js"]
