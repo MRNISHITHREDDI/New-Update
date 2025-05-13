@@ -1,16 +1,15 @@
-FROM node:18-slim
+FROM node:16-slim
 
 WORKDIR /app
 
-# Copy only the production server file and package.json
-COPY production-server.js ./
-COPY package.json ./
+# Copy server file
+COPY server.js .
 
-# Install only express
+# Install express
 RUN npm install express
 
 # Expose port 8080
 EXPOSE 8080
 
-# Run the ultra-simple server
-CMD ["node", "production-server.js"]
+# Start the server
+CMD ["node", "server.js"]
