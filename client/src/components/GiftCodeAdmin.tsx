@@ -141,19 +141,19 @@ const GiftCodeAdmin = () => {
 
   return (
     <Card className="w-full border-[#00ECBE]/20 bg-[#05012B]/50 shadow-lg">
-      <CardHeader className="pb-4 pt-6 px-8">
-        <div className="flex items-center gap-3">
-          <Gift size={24} className="text-[#00ECBE]" />
+      <CardHeader className="pb-2 pt-4 px-6">
+        <div className="flex items-center gap-2">
+          <Gift size={20} className="text-[#00ECBE]" />
           <CardTitle className="text-2xl font-medium text-[#00ECBE]">Gift Code Management</CardTitle>
         </div>
-        <CardDescription className="text-base mt-2">View and update the gift code displayed to users</CardDescription>
+        <CardDescription className="text-base mt-1">View and update the gift code displayed to users</CardDescription>
       </CardHeader>
-      <CardContent className="px-8 pb-8">
-        <div className="space-y-8">
+      <CardContent className="px-6 pb-6">
+        <div className="space-y-6">
           <div>
-            <label className="text-base font-medium mb-3 block">Current Gift Code</label>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-between bg-[#05012B]/70 border border-[#00ECBE]/30 rounded-lg p-4 flex-1">
+            <label className="text-base font-medium mb-2 block">Current Gift Code</label>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between bg-[#05012B]/70 border border-[#00ECBE]/30 rounded-lg p-3 flex-1">
                 <code className="text-white font-mono text-base overflow-hidden text-ellipsis block w-full">
                   {giftCode || 'Loading...'}
                 </code>
@@ -162,26 +162,26 @@ const GiftCodeAdmin = () => {
                 size="icon"
                 variant="outline"
                 onClick={handleCopyCode}
-                className="text-[#00ECBE] hover:text-white border-[#00ECBE]/30 hover:bg-[#00ECBE]/10 h-12 w-12 flex-shrink-0"
+                className="text-[#00ECBE] hover:text-white border-[#00ECBE]/30 hover:bg-[#00ECBE]/10 h-10 w-10 flex-shrink-0"
               >
-                {copied ? <CheckCircle2 size={20} /> : <Clipboard size={20} />}
+                {copied ? <CheckCircle2 size={18} /> : <Clipboard size={18} />}
               </Button>
             </div>
           </div>
           
-          <div className="pt-2">
-            <label className="text-base font-medium mb-3 block">Update Gift Code</label>
-            <div className="flex items-center gap-3">
+          <div className="pt-1">
+            <label className="text-base font-medium mb-2 block">Update Gift Code</label>
+            <div className="flex items-center gap-2">
               <Input 
                 value={newGiftCode}
                 onChange={(e) => setNewGiftCode(e.target.value)}
                 placeholder="Enter new gift code"
-                className="flex-1 py-6"
+                className="flex-1 py-2"
               />
               <Button
                 onClick={updateGiftCode}
                 disabled={isLoading || !newGiftCode}
-                className="bg-[#00ECBE] text-[#05012B] hover:bg-[#00ECBE]/90 py-6 px-6"
+                className="bg-[#00ECBE] text-[#05012B] hover:bg-[#00ECBE]/90 py-2 px-4"
               >
                 {isLoading ? 'Updating...' : 'Update'}
               </Button>

@@ -213,11 +213,11 @@ const AdminDashboard = () => {
 
   return (
     <div className="w-full">
-      <Card className="border-[#00ECBE]/20 bg-[#05012B]/50 mb-8 shadow-lg">
-        <CardHeader className="pb-4 pt-6 px-8">
+      <Card className="border-[#00ECBE]/20 bg-[#05012B]/50 mb-4 shadow-lg">
+        <CardHeader className="pb-2 pt-4 px-6">
           <CardTitle className="text-2xl font-medium text-[#00ECBE]">Account Verifications</CardTitle>
         </CardHeader>
-        <CardContent className="px-8 pb-6">
+        <CardContent className="px-6 pb-4">
           <p className="text-base text-muted-foreground">
             Review and manage user verification requests. Approve or reject user accounts based on their Jalwa User ID.
           </p>
@@ -225,55 +225,55 @@ const AdminDashboard = () => {
       </Card>
       
       <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <TabsList className="overflow-x-auto w-full sm:w-auto bg-[#05012B]/70 border-[#00ECBE]/20 border p-1.5">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+          <TabsList className="overflow-x-auto w-full sm:w-auto bg-[#05012B]/70 border-[#00ECBE]/20 border p-1">
             <TabsTrigger 
               value="all"
-              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3.5 px-6 text-base"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-2.5 px-4 text-base"
             >
               All Verifications
             </TabsTrigger>
             <TabsTrigger 
               value="approved"
-              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3.5 px-6 text-base"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-2.5 px-4 text-base"
             >
               Approved
             </TabsTrigger>
             <TabsTrigger 
               value="rejected"
-              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-3.5 px-6 text-base"
+              className="data-[state=active]:bg-[#00ECBE]/10 data-[state=active]:text-[#00ECBE] data-[state=active]:shadow-none py-2.5 px-4 text-base"
             >
               Rejected
             </TabsTrigger>
           </TabsList>
           
-          <div className="hidden sm:flex items-center gap-4">
+          <div className="hidden sm:flex items-center gap-3">
             <Label htmlFor="status-filter" className="text-muted-foreground text-base">Filter:</Label>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger id="status-filter" className="w-[220px] border-[#00ECBE]/30 bg-[#05012B]/70 py-3.5 px-4 text-base">
+              <SelectTrigger id="status-filter" className="w-[180px] border-[#00ECBE]/30 bg-[#05012B]/70 py-2 px-3 text-base">
                 <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
               <SelectContent className="bg-[#05012B] border-[#00ECBE]/30">
-                <SelectItem value="all" className="text-base py-2.5">All</SelectItem>
-                <SelectItem value="pending" className="text-base py-2.5">Pending</SelectItem>
-                <SelectItem value="approved" className="text-base py-2.5">Approved</SelectItem>
-                <SelectItem value="rejected" className="text-base py-2.5">Rejected</SelectItem>
+                <SelectItem value="all" className="text-base py-1.5">All</SelectItem>
+                <SelectItem value="pending" className="text-base py-1.5">Pending</SelectItem>
+                <SelectItem value="approved" className="text-base py-1.5">Approved</SelectItem>
+                <SelectItem value="rejected" className="text-base py-1.5">Rejected</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
         
-        <TabsContent value="all" className="mt-6 pb-6">
+        <TabsContent value="all" className="mt-3 pb-3">
           {renderVerificationsTable(getVerificationsToDisplay())}
         </TabsContent>
         
-        <TabsContent value="approved" className="mt-6 pb-6">
+        <TabsContent value="approved" className="mt-3 pb-3">
           {renderVerificationsTable(
             getVerificationsToDisplay().filter(v => v.status === 'approved')
           )}
         </TabsContent>
         
-        <TabsContent value="rejected" className="mt-6 pb-6">
+        <TabsContent value="rejected" className="mt-3 pb-3">
           {renderVerificationsTable(
             getVerificationsToDisplay().filter(v => v.status === 'rejected')
           )}
