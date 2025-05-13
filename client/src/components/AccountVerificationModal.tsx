@@ -222,7 +222,7 @@ const AccountVerificationModal = ({
               <div className="p-6 pb-0 sticky top-0 bg-[#05012B] z-[5]">
                 <div className="flex items-center justify-center mb-2">
                   <Rocket className="h-6 w-6 mr-2 text-[#00ECBE]" />
-                  <h2 className="text-2xl font-bold text-center text-white">JALWA VIP PREDICTION</h2>
+                  <h2 className="text-2xl font-bold text-center text-white whitespace-nowrap">JALWA <span className="text-[#00ECBE]">VIP PREDICTION</span></h2>
                 </div>
                 <div className="flex justify-center">
                   <Badge variant="outline" className="w-auto p-1 px-3 bg-[#081042] text-[#00ECBE] mb-3 text-center">

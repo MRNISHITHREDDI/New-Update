@@ -78,11 +78,12 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* VIP PREDICTION heading - fixed for mobile display */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-poppins mb-6 tracking-wide">
-              <span className="text-white inline-block">VIP</span>{" "}
+            {/* VIP PREDICTION heading - enhanced for desktop display */}
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-poppins mb-6 tracking-wide flex flex-wrap md:flex-nowrap justify-center whitespace-nowrap">
+              <span className="text-white">VIP</span>
+              <span className="mx-2 md:mx-3">&nbsp;</span>
               <motion.span
-                className="text-[#00ECBE] inline-block"
+                className="text-[#00ECBE]"
                 initial={{ textShadow: "0 0 0px rgba(0, 236, 190, 0)" }}
                 animate={{ textShadow: "0 0 20px rgba(0, 236, 190, 0.7)" }}
                 transition={{
